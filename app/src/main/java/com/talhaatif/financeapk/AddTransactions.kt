@@ -3,6 +3,8 @@ package com.talhaatif.financeapk
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
 import com.talhaatif.financeapk.databinding.ActivityAddTransactionsBinding
+import com.talhaatif.financeapk.dialog.CategoryPickerDialog
 import com.talhaatif.financeapk.firebase.Util
+import com.talhaatif.financeapk.firebase.Variables
+import com.talhaatif.financeapk.models.Category
 import com.talhaatif.financeapk.viewmodel.AddTransactionViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,6 +26,7 @@ class AddTransactions : AppCompatActivity() {
     private lateinit var viewModel: AddTransactionViewModel
     private val utils = Util()
     private var selectedDate = ""
+    private lateinit var selectedCategory: Category
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +38,34 @@ class AddTransactions : AppCompatActivity() {
         binding.btnDatePicker.setOnClickListener {
             showDatePicker()
         }
+
+        // List of categories
+        val categories = listOf(
+            Category("Food", R.drawable.ic_food),
+            Category("Transport", R.drawable.ic_baseline_directions_transit_24),
+            Category("Shopping", R.drawable.ic_baseline_shopping_cart_24),
+            Category("Entertainment", R.drawable.ic_entertain),
+            Category("Health", R.drawable.ic_health)
+        )
+
+        // Set up the category picker button
+        binding.btnCategoryPicker.setOnClickListener {
+            val dialog = CategoryPickerDialog(this, categories) { category ->
+                selectedCategory = category
+                // Update UI with the selected category
+                binding.selectedCategory.text = category.name
+
+                // Apply tint color to the button icon
+                val tintColor = Variables.categoryTintMap[category.name] ?: Color.BLACK
+//                binding.btnCategoryPicker.setColorFilter(tintColor)
+                binding.btnCategoryPicker.imageTintList = ColorStateList.valueOf(tintColor)
+
+
+                binding.btnCategoryPicker.setImageResource(category.imageResId)
+            }
+            dialog.show()
+        }
+
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -84,7 +118,7 @@ class AddTransactions : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            viewModel.addTransaction(this, amount, transactionType, selectedDate, notes)
+            viewModel.addTransaction(this, amount, transactionType, selectedDate, notes, category = selectedCategory.name.lowercase())
         }
 
         // Observe transaction status

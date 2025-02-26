@@ -2,6 +2,7 @@ package com.talhaatif.financeapk.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -43,6 +44,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fetchUserCurrencyType() {
-        _currencyType.postValue(utils.getLocalData(getApplication(), "currency") ?: "USD")
+        val currency = utils.getLocalData(getApplication(), "currency") ?: "USD"
+        Log.d("HomeViewModel", "Currency -> $currency")
+        _currencyType.postValue(currency)
+
+
     }
 }

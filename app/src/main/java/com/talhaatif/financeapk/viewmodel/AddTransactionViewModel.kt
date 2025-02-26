@@ -13,7 +13,7 @@ class AddTransactionViewModel(application: Application) : AndroidViewModel(appli
     private val utils = Util()
     val transactionState = MutableLiveData<Result<Boolean>>() // Observing transaction status
 
-    fun addTransaction(context: Context, amount: String, transType: String, selectedDate: String, notes: String) {
+    fun addTransaction(context: Context, amount: String, transType: String, selectedDate: String, notes: String, category : String) {
         val userId = utils.getLocalData(context, "uid") ?: ""
 
         val transaction = hashMapOf(
@@ -21,7 +21,8 @@ class AddTransactionViewModel(application: Application) : AndroidViewModel(appli
             "transAmount" to amount,
             "transType" to transType,
             "transDate" to selectedDate,
-            "notes" to notes
+            "notes" to notes,
+            "category" to category
         )
 
         db.collection("transactions").add(transaction)

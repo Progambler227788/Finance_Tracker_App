@@ -3,6 +3,7 @@ package com.talhaatif.financeapk.firebase
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,15 @@ class Variables {
         val db = FirebaseFirestore.getInstance()
         // for dealing with files on db storage like user profile image, or video images like that
         val storageRef = FirebaseStorage.getInstance().reference
+
+
+        val categoryTintMap = mapOf(
+            "Food" to Color.GREEN,
+            "Transport" to Color.BLUE,
+            "Shopping" to Color.YELLOW,
+            "Entertainment" to Color.MAGENTA,
+            "Health" to Color.parseColor("#FF1493") // Pink color for Health
+        )
 
         fun displayErrorMessage(message: String, context: Context) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

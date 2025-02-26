@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.animation.Easing
@@ -59,22 +60,25 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers() {
         homeViewModel.budgetData.observe(viewLifecycleOwner) { budget ->
-            updateUI(budget)
+            val currency = homeViewModel.currencyType.value ?: "USD"
+            updateUIWithCurrency(budget, currency)
             setupPieChart(budget)
         }
 
         homeViewModel.currencyType.observe(viewLifecycleOwner) { currency ->
-            updateCurrencySymbol(currency)
+            val budget = homeViewModel.budgetData.value
+            updateUIWithCurrency(budget, currency)
         }
     }
 
-    private fun updateUI(budget: BudgetModel?) {
+    private fun updateUIWithCurrency(budget: BudgetModel?, currency: String) {
         if (budget == null) return
 
-        binding.tvBalanceAmount.text = budget.balance.toString()
-        binding.tvIncomeAmount.text =  budget.income.toString()
-        binding.tvExpenseAmount.text = budget.expense.toString()
+        binding.tvBalanceAmount.text = "$currency ${budget.balance}"
+        binding.tvIncomeAmount.text = "$currency ${budget.income}"
+        binding.tvExpenseAmount.text = "$currency ${budget.expense}"
     }
+
 
     private fun setupPieChart(budget: BudgetModel?) {
         if (budget == null) return
@@ -126,11 +130,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun updateCurrencySymbol(currency: String) {
-        binding.tvBalanceAmount.text = "$currency ${binding.tvBalanceAmount.text}"
-        binding.tvIncomeAmount.text = "$currency ${binding.tvIncomeAmount.text}"
-        binding.tvExpenseAmount.text = "$currency ${binding.tvExpenseAmount.text}"
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

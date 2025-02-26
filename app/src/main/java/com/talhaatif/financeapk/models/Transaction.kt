@@ -5,5 +5,6 @@ data class Transaction(
     val transAmount: String = "",
     val transType: String = "",
     val transDate: String = "",
-    val notes: String = ""
+    val notes: String = "",
+    val category: String = ""
 )

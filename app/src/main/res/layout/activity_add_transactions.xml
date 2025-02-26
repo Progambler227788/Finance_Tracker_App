@@ -85,6 +85,29 @@
                 tools:listitem="@layout/item_category"
                 android:padding="8dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="32dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/selectedCategory"
+                    style="@style/TextAppearance.Input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Selected Category" />
+
+                <ImageView
+                    android:id="@+id/btn_category_picker"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_food"
+                    />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +129,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_baseline_calendar_month_24"
-                    app:tint="?attr/colorOnSurface" />
+                    app:tint="@color/purple_200" />
             </LinearLayout>
 
 
