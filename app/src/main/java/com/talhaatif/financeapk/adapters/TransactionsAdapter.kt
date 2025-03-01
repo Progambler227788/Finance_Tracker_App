@@ -1,5 +1,7 @@
 package com.talhaatif.financeapk.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.talhaatif.financeapk.R
 import com.talhaatif.financeapk.databinding.RvTransactionsBinding
 import com.talhaatif.financeapk.databinding.ItemTransactionDateBinding
+import com.talhaatif.financeapk.firebase.Variables
 import com.talhaatif.financeapk.models.Transaction
 
 class TransactionsAdapter(private var groupedTransactions: Map<String, List<Transaction>>) :
@@ -71,11 +74,27 @@ class TransactionsAdapter(private var groupedTransactions: Map<String, List<Tran
     class TransactionViewHolder(private val binding: RvTransactionsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: Transaction) {
-            binding.transactionView.setImageResource(
-                if (transaction.transType == "Income") R.drawable.ic_positive_amount else R.drawable.ic_negative_transaction
-            )
-            binding.transactionType.text = transaction.transType
+
+            val tintColor = Variables.categoryTintMap[transaction.category] ?: Color.BLACK
+            val categoryImage = Variables.categoryResourceMap[transaction.category] ?: R.drawable.ic_food
+
+            binding.transactionView.setImageResource(categoryImage)
+            binding.transactionView.setColorFilter(tintColor)
+
+
+            // to capitalize the word like food -> Food
+            binding.transactionType.text = transaction.category.replaceFirstChar { it.uppercase() }
             binding.transactionAmount.text = transaction.transAmount
+            if (transaction.transType == "Income")
+            {   binding.transactionAmount.setTextColor(Color.GREEN)
+                binding.transactionAmount.text = "+"  + transaction.transAmount
+
+            }
+            else{
+                binding.transactionAmount.setTextColor(Color.RED)
+                binding.transactionAmount.text = "-" + transaction.transAmount
+
+            }
             binding.transactionDate.text = transaction.transDate
         }
     }

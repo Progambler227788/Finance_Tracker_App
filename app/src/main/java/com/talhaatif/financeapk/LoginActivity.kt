@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         progressDialog = CustomProgressDialog(this)
-        progressDialog.setMessage("Loading...")
+        progressDialog.setMessage("Logging...")
 
         binding.login.setOnClickListener {
             val email = binding.email.text.toString()

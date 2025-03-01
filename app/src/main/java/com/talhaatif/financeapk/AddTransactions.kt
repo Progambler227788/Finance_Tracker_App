@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
 import com.talhaatif.financeapk.databinding.ActivityAddTransactionsBinding
 import com.talhaatif.financeapk.dialog.CategoryPickerDialog
+import com.talhaatif.financeapk.dialog.CustomProgressDialog
 import com.talhaatif.financeapk.firebase.Util
 import com.talhaatif.financeapk.firebase.Variables
 import com.talhaatif.financeapk.models.Category
@@ -27,12 +28,16 @@ class AddTransactions : AppCompatActivity() {
     private val utils = Util()
     private var selectedDate = ""
     private lateinit var selectedCategory: Category
+    private lateinit var progressDialog: CustomProgressDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTransactionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressDialog = CustomProgressDialog(this)
+        progressDialog.setMessage("Logging...")
 
         // Date picker logic
         binding.btnDatePicker.setOnClickListener {
@@ -41,11 +46,11 @@ class AddTransactions : AppCompatActivity() {
 
         // List of categories
         val categories = listOf(
-            Category("Food", R.drawable.ic_food),
-            Category("Transport", R.drawable.ic_baseline_directions_transit_24),
-            Category("Shopping", R.drawable.ic_baseline_shopping_cart_24),
-            Category("Entertainment", R.drawable.ic_entertain),
-            Category("Health", R.drawable.ic_health)
+            Category("food", R.drawable.ic_food),
+            Category("transport", R.drawable.ic_baseline_directions_transit_24),
+            Category("shopping", R.drawable.ic_baseline_shopping_cart_24),
+            Category("entertainment", R.drawable.ic_entertain),
+            Category("health", R.drawable.ic_health)
         )
 
         // Set up the category picker button
@@ -118,17 +123,23 @@ class AddTransactions : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            progressDialog.setMessage("Adding Transaction...")
+            progressDialog.setCancelable(false) // Prevent the user from dismissing the dialog
+            progressDialog.show()
+
             viewModel.addTransaction(this, amount, transactionType, selectedDate, notes, category = selectedCategory.name.lowercase())
         }
 
         // Observe transaction status
         viewModel.transactionState.observe(this) { result ->
             result.onSuccess {
+                progressDialog.dismiss()
                 Toast.makeText(this, "Transaction added successfully", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
             result.onFailure { error ->
+                progressDialog.dismiss()
                 Toast.makeText(this, "Failed to add transaction: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         }

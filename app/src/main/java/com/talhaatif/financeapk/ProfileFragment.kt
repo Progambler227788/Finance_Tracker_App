@@ -16,12 +16,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.talhaatif.financeapk.databinding.FragmentProfileBinding
+import com.talhaatif.financeapk.dialog.CustomProgressDialog
 import com.talhaatif.financeapk.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
     private var imgChange = false
+    private lateinit var progressDialog: CustomProgressDialog
 
 
     override fun onCreateView(
@@ -34,6 +36,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        progressDialog = CustomProgressDialog(requireContext())
+        progressDialog.setMessage("Profile Update...")
 
         profileViewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
@@ -72,6 +77,10 @@ class ProfileFragment : Fragment() {
 
             val bitmap = binding.imageView.drawable?.toBitmap()
 
+            progressDialog.setMessage("Profile Updating..")
+            progressDialog.setCancelable(false) // Prevent the user from dismissing the dialog
+            progressDialog.show()
+
 
             profileViewModel.updateUserProfile(name, currency, bitmap, imgChange)
         }
@@ -107,7 +116,7 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.updateSuccess.observe(viewLifecycleOwner, Observer { success ->
-//            progressDialog.dismiss()
+            progressDialog.dismiss()
             Toast.makeText(requireContext(), if (success) "Profile updated" else "Update failed", Toast.LENGTH_SHORT).show()
         })
     }

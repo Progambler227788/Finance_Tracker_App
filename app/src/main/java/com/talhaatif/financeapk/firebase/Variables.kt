@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.talhaatif.financeapk.R
 
 class Variables {
     companion object {
@@ -22,11 +23,19 @@ class Variables {
 
 
         val categoryTintMap = mapOf(
-            "Food" to Color.GREEN,
-            "Transport" to Color.BLUE,
-            "Shopping" to Color.YELLOW,
-            "Entertainment" to Color.MAGENTA,
-            "Health" to Color.parseColor("#FF1493") // Pink color for Health
+            "food" to Color.GREEN,
+            "transport" to Color.BLUE,
+            "shopping" to Color.YELLOW,
+            "entertainment" to Color.MAGENTA,
+            "health" to Color.parseColor("#FF1493") // Pink color for Health
+        )
+
+        val categoryResourceMap = mapOf(
+            "food" to  R.drawable.ic_food ,
+            "transport" to R.drawable.ic_baseline_directions_transit_24,
+            "shopping" to R.drawable.ic_baseline_shopping_cart_24,
+            "entertainment" to R.drawable.ic_entertain,
+            "health" to R.drawable.ic_health// Pink color for Health
         )
 
         fun displayErrorMessage(message: String, context: Context) {
