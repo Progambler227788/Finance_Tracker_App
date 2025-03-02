@@ -6,6 +6,22 @@ A **Finance Tracker App** built with **Android Kotlin**, **XML**, and **MVVM Arc
 
 ---
 
+## 📸 Screenshots
+
+| Splash Screen | Login Screen | Signup Screen |
+|---------------|--------------|---------------|
+| ![Splash](https://i.postimg.cc/3dLbRFqg/splash-screen.png) | ![Login](https://i.postimg.cc/jwdszXsR/a11.png) | ![Signup](https://i.postimg.cc/TKgYG17v/a12.png) |
+
+| Home Screen | Transactions Screen | Profile Screen |
+|-------------|---------------------|----------------|
+| ![Home](https://i.postimg.cc/1gSRzS2n/a4.png) | ![Transactions](https://i.postimg.cc/p9BWh7M0/a8.png) | ![Profile](https://i.postimg.cc/mzXTVHDC/a7.png) |
+
+| Income/Expense Graph | Transaction Details | Profile Update Currency Option |
+|----------------------|---------------------|----------------|
+| ![Graph](https://i.postimg.cc/Th1d1C79/a9.png) | ![Details](https://i.postimg.cc/F169L3wQ/a10.png) | ![Update](https://i.postimg.cc/H8rdNkcK/a6.png) |
+
+---
+
 ## 📱 Features
 
 ### **1. Splash Screen**
@@ -36,21 +52,7 @@ A **Finance Tracker App** built with **Android Kotlin**, **XML**, and **MVVM Arc
 - **Networking**: Retrofit (if API calls are used)
 - **Authentication**: Firebase Authentication (if used)
 
----
 
-## 📸 Screenshots
-
-| Splash Screen | Login Screen | Signup Screen |
-|---------------|--------------|---------------|
-| ![Splash](https://i.postimg.cc/3dLbRFqg/splash-screen.png) | ![Login](https://i.postimg.cc/jwdszXsR/a11.png) | ![Signup](https://i.postimg.cc/TKgYG17v/a12.png) |
-
-| Home Screen | Transactions Screen | Profile Screen |
-|-------------|---------------------|----------------|
-| ![Home](https://i.postimg.cc/1gSRzS2n/a4.png) | ![Transactions](https://i.postimg.cc/p9BWh7M0/a8.png) | ![Profile](https://i.postimg.cc/mzXTVHDC/a7.png) |
-
-| Income/Expense Graph | Transaction Details | Profile Update Currency Option |
-|----------------------|---------------------|----------------|
-| ![Graph](https://i.postimg.cc/Th1d1C79/a9.png) | ![Details](https://i.postimg.cc/F169L3wQ/a10.png) | ![Update](https://i.postimg.cc/H8rdNkcK/a6.png) |
 
 ---
 
