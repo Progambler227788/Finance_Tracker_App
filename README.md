@@ -46,11 +46,9 @@ A **Finance Tracker App** built with **Android Kotlin**, **XML**, and **MVVM Arc
 
 - **Programming Languages**: Kotlin, XML
 - **Architecture**: MVVM (Model-View-ViewModel)
-- **Dependency Injection**: Hilt/Dagger (if used)
-- **Database**: Room Database/Firebase (if used)
+- **Database**: Firebase Firestore
 - **Charts**: MPAndroidChart (for graphs)
-- **Networking**: Retrofit (if API calls are used)
-- **Authentication**: Firebase Authentication (if used)
+- **Authentication**: Firebase Authentication
 
 
 
